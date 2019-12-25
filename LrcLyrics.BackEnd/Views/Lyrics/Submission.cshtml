@@ -86,30 +86,6 @@
             </div>
         </form>
     </div>
-    <hr />
-    <form method="post">
-        <input type="hidden" id="Id" name="Id" value="@submission.Id" />
-        <h2 class="d-inline">Publish submission</h2> <small>Key required</small>
-        <br />
-        <br />
-        <div class="form-row">
-            <div class="col-sm-6">
-                <input class="form-control" name="Key" id="Key" type="text" placeholder="Moderator key" />
-            </div>
-            <div class="col-sm-6">
-                <button asp-controller="Lyrics" asp-action="PublishSubmission" type="submit" class="btn btn-outline-primary btn-outline w-100">Publish</button>
-            </div>
-        </div>
-        <br />
-        <div class="form-row">
-            <div class="col-sm-6">
-                <input class="form-control" name="DenyReason" id="DenyReason" type="text" placeholder="Deny reason" />
-            </div>
-            <div class="col-sm-6">
-                <button asp-controller="Lyrics" asp-action="DenySubmission" type="submit" class="btn btn-outline-danger btn-outline w-100">Deny</button>
-            </div>
-        </div>
-    </form>
 }
 <div class="text-center">
     <hr />
@@ -117,3 +93,32 @@
     <hr />
     @Html.PartialAsync("_LyricLines", submission.Lyrics).Result
 </div>
+@if (submission.State == SubmissionState.Pending || submission.State == SubmissionState.Denied)
+{
+    <div>
+        <hr />
+        <form method="post">
+            <input type="hidden" id="Id" name="Id" value="@submission.Id" />
+            <h2 class="d-inline">Publish submission</h2> <small>Key required</small>
+            <br />
+            <br />
+            <div class="form-row">
+                <div class="col-sm-6">
+                    <input class="form-control" name="Key" id="Key" type="text" placeholder="Moderator key" />
+                </div>
+                <div class="col-sm-6">
+                    <button asp-controller="Lyrics" asp-action="PublishSubmission" type="submit" class="btn btn-outline-primary btn-outline w-100">Publish</button>
+                </div>
+            </div>
+            <br />
+            <div class="form-row">
+                <div class="col-sm-6">
+                    <input class="form-control" name="DenyReason" id="DenyReason" type="text" placeholder="Deny reason" />
+                </div>
+                <div class="col-sm-6">
+                    <button asp-controller="Lyrics" asp-action="DenySubmission" type="submit" class="btn btn-outline-danger btn-outline w-100">Deny</button>
+                </div>
+            </div>
+        </form>
+    </div>
+}

@@ -16,7 +16,7 @@ if (timer) {
     setInterval(function () {
         var time = new Date((Date.now() - baseTime));
         timer.innerText = formatDate(time, "mm:ss.ff").replace(/100$/, "00");
-    }, 60);
+    }, 71);
 }
 
 const highlightStep = 120;
@@ -32,15 +32,12 @@ if (document.getElementById("lyric-lines")) {
             if (elementTime < time + 30 && !(nextElementTime < time + 30)) {
                 lines[i].className = lines[i].className.replace(defaultColor, currentColor);
             }
-            else if (elementTime < time + 100 && !(nextElementTime < time + 100)) {
+            else if (elementTime < time + 100 && elementTime >= time + 30) {
                 lines[i].className = lines[i].className.replace(defaultColor, approachingColor);
             }
             if (i != lines.length - 1 &&
                 lines[i].getElementsByClassName("progress").length > 0 &&
                 lines[i].getElementsByClassName("progress")[0].getElementsByClassName("progress-bar").length > 0
-                //&&
-                //time + highlightStep >= elementTime &&
-                //time - highlightStep <= parseInt(lines[i + 1].id)
             ) {
                 var progress = lines[i].getElementsByClassName("progress")[0].getElementsByClassName("progress-bar")[0];
                 if (progress) {
@@ -54,7 +51,9 @@ if (document.getElementById("lyric-lines")) {
                     } else if (fill > 1) {
                         fill = 1
                     }
-                    progress.style.width = fill * 100 + "%";
+                    var value = fill * 100 + "%";
+                    if (progress.style.width !== value)
+                    progress.style.width = value;
                 }
             }
         }
