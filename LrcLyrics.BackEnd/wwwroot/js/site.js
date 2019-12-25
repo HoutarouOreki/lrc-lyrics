@@ -64,7 +64,7 @@ if (document.getElementById("lyric-lines")) {
 function seek(line) {
     var previousTime = (Date.now() - baseTime);
     var difference = (parseInt(line.id) * 10) - previousTime;
-    baseTime -= difference;
+    baseTime -= difference + 20;
 }
 
 for (var i = 0; i < lines.length; i++) {
