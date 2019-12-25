@@ -4,7 +4,7 @@ for details on configuring this project to bundle and minify static web assets. 
 :root {
     --text: hsl(0, 0%, 90%);
     --approaching: hsl(50, 100%, 50%);
-    --intensifying: hsl(0, 0%, 90%);
+    --intensifying: hsl(0, 0%, 80%);
 }
 
 @media (prefers-color-scheme: light) {

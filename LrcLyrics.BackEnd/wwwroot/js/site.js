@@ -5,6 +5,7 @@
 
 const timer = document.getElementById("timer");
 let baseTime = Date.now();
+const offset = 300;
 
 const lines = document.getElementsByClassName("lyric-line");
 
@@ -14,8 +15,12 @@ const currentColor = " approaching";
 
 if (timer) {
     setInterval(function () {
-        var time = new Date((Date.now() - baseTime));
-        timer.innerText = formatDate(time, "mm:ss.ff").replace(/100$/, "00");
+        var time = new Date(Date.now() - baseTime - (offset * 10));
+        if (time < 0) {
+            timer.innerText = "-" + formatDate(new Date((baseTime + (offset * 10)) - Date.now()), "mm:ss.ff").replace(/100$/, "00");
+        } else {
+            timer.innerText = formatDate(time, "mm:ss.ff").replace(/100$/, "00");
+        }
     }, 71);
 }
 
@@ -23,7 +28,7 @@ const highlightStep = 120;
 
 if (document.getElementById("lyric-lines")) {
     setInterval(function () {
-        var time = new Date((Date.now() - baseTime)) / 10;
+        var time = new Date((Date.now() - baseTime)) / 10 - offset;
         for (var i = 0; i < lines.length; i++) {
             var elementTime = parseInt(lines[i].id);
             var nextElementTime = (i < lines.length - 1) ? parseInt(lines[i + 1].id) : Number.POSITIVE_INFINITY;
@@ -64,6 +69,9 @@ function seek(line) {
     var previousTime = (Date.now() - baseTime);
     var difference = (parseInt(line.id) * 10) - previousTime;
     baseTime -= difference + 20;
+    if (line != lines[0]) {
+        baseTime -= offset * 10;
+    }
 }
 
 for (var i = 0; i < lines.length; i++) {
