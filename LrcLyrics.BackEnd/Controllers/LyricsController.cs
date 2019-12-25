@@ -54,7 +54,7 @@ namespace LrcLyrics.BackEnd.Controllers
         public IActionResult ViewLyric(int id, string _) => ViewLyric(id);
 
         [HttpGet("{id:int}/{artist:length(0, 100):regex(.*)}/{title:length(0, 100):regex(.*)}/Download")]
-        public FileResult DownloadLrc([FromQuery]int id)
+        public FileResult DownloadLrc([FromRoute]int id)
         {
             var lyric = lyricService.GetLyrics(id);
             return File(Encoding.UTF8.GetBytes(lyric.GetLrcString()), "text/lrc", $"{lyric.Artist} - {lyric.Title}.lrc");

@@ -74,7 +74,7 @@ for (var i = 0; i < lines.length; i++) {
 }
 
 const timestampsCookieName = "timestampsOn";
-let timestampsShown = true;
+let timestampsShown = false;
 const timestamps = document.getElementsByClassName("line-timestamp");
 const toggleTimestampsButton = document.getElementById("toggle-timestamps");
 
@@ -87,7 +87,6 @@ function toggleTimestamps() {
         }
     }
     timestampsShown = !timestampsShown;
-    toggleTimestampsButton.textContent = timestampsShown ? "Timestamps on" : "Timestamps off";
     setCookie(timestampsCookieName, timestampsShown, 360);
 }
 

@@ -212,6 +212,12 @@ hr {
     /*border: 1px solid dimgray;*/
 }
 
+@media (prefers-color-scheme: light) {
+    .progress {
+        background-color: hsl(0, 0%, 80%);
+    }
+}
+
 .progress-bar {
     height: inherit;
     background-color: var(--approaching) !important;

@@ -14,7 +14,7 @@
         {
             var isProgressBar = string.IsNullOrEmpty(line.Text) && Model.Lines.Count - 1 != i && (Model.Lines[i + 1].Time - line.Time) > 300;
             <div class="lyric-line text-white-50" id="@line.Time">
-                <div class="line-timestamp d-inline">[@line.TimeString]</div>
+                <div class="line-timestamp d-none">[@line.TimeString]</div>
                 @if (isProgressBar)
                 {
                     <div class="progress">
