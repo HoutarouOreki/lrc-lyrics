@@ -58,7 +58,7 @@ if (document.getElementById("lyric-lines")) {
                     }
                     var value = fill * 100 + "%";
                     if (progress.style.width !== value)
-                    progress.style.width = value;
+                        progress.style.width = value;
                 }
             }
         }
@@ -69,9 +69,9 @@ function seek(line) {
     var previousTime = (Date.now() - baseTime);
     var difference = (parseInt(line.id) * 10) - previousTime;
     baseTime -= difference + 20;
-    if (line != lines[0]) {
-        baseTime -= offset * 10;
-    }
+    //if (line != lines[0]) {
+    baseTime -= offset * 10;
+    //}
 }
 
 for (var i = 0; i < lines.length; i++) {
