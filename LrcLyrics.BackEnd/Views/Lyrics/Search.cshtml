@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = $"Search: {ViewData["SearchText"]}";
+}
+<h1>@ViewData["Title"]</h1>
+<h2>@ViewData["Cos"]</h2>
+
+@if (ViewData["SearchResults"] is IReadOnlyList<Lyrics> lyrics)
+{
+    @foreach (var lyric in lyrics)
+    {
+        @Html.PartialAsync("_LyricPanel", lyric).Result;
+    }
+}
+else if (ViewData["SearchResults"] is IReadOnlyList<LyricsSubmission> submissions)
+{
+    @foreach (var submission in submissions)
+    {
+        @Html.PartialAsync("_SubmissionPanel", submission).Result;
+    }
+}

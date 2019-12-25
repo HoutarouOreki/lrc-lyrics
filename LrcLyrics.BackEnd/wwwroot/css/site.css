@@ -1,0 +1,229 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+:root {
+    --text: hsl(0, 0%, 90%);
+    --approaching: hsl(50, 100%, 50%);
+    --intensifying: hsl(0, 0%, 90%);
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --approaching: hsl(303, 100%, 36%);
+        --text: hsl(0, 0%, 10%);
+        --intensifying: hsl(218, 100%, 40%);
+    }
+
+    .text-white-50 {
+        color: hsl(0, 0%, 70%) !important;
+    }
+}
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+a {
+    color: hsl(47, 100%, 50%);
+}
+
+    a:hover {
+        color: hsl(51, 100%, 50%);
+    }
+
+@media (prefers-color-scheme: light) {
+    a {
+        color: var(--approaching)
+    }
+
+        a:hover {
+            color: hsl(302, 100%, 41%);
+        }
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+@media (prefers-color-scheme: light) {
+    .navbar-toggler-icon {
+        filter: invert(100%);
+    }
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 400px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: hsl(0, 0%, 10%);
+    color: var(--text);
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: hsl(0, 0%, 90%);
+        color: var(--text);
+    }
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+    overflow-x: auto;
+}
+
+.lyric-link {
+    color: hsl(0, 0%, 90%) !important;
+}
+
+    .lyric-link:hover {
+        color: rgb(0, 0, 95%) !important;
+    }
+
+@media (prefers-color-scheme: light) {
+    .lyric-link {
+        color: rgb(20, 20, 20) !important;
+    }
+
+        .lyric-link:hover {
+            color: rgb(50, 50, 50) !important;
+        }
+}
+
+#lyric-lines {
+    line-height: 2em;
+    max-width: 600px;
+    margin: auto;
+}
+
+.form-control {
+    background: hsl(0, 0%, 5%);
+    border-color: gray;
+    color: hsl(0, 0%, 90%);
+    border-radius: 0;
+}
+
+    .form-control:focus {
+        background: hsl(0, 0%, 20%);
+        color: var(--text)
+    }
+
+@media (prefers-color-scheme: light) {
+    .form-control {
+        background: hsl(0, 0%, 95%);
+        color: hsl(0, 0%, 10%);
+    }
+
+        .form-control:focus {
+            background: hsl(0, 0%, 20%);
+            color: var(--text)
+        }
+}
+
+.btn {
+    border-radius: 0;
+}
+
+.lyric-line {
+    transition: color linear 0.2s;
+    margin: auto;
+}
+
+.approaching {
+    color: var(--approaching) !important;
+}
+
+hr {
+    background-color: hsl(0, 0%, 30%);
+}
+
+.btn-outline-info:hover {
+    background-color: rgba(23, 162, 184, 0.40)
+}
+
+.btn-outline-primary:hover {
+    background-color: rgba(0, 123, 255, 0.40)
+}
+
+.btn-outline-danger:hover {
+    background-color: rgba(255, 0, 0, 0.40)
+}
+
+.progress {
+    width: 200px;
+    margin: auto;
+    display: inline-block;
+    height: 10px;
+    border-radius: 0px;
+    background-color: hsl(0, 0%, 20%);
+    /*border: 1px solid dimgray;*/
+}
+
+.progress-bar {
+    height: inherit;
+    background-color: var(--approaching) !important;
+    opacity: 0.8;
+    transition-duration: 0.12s;
+    transition-timing-function: linear;
+}
+
+.intensifying {
+    color: var(--intensifying)
+}
+
+a, input, button {
+    touch-action: manipulation;
+}

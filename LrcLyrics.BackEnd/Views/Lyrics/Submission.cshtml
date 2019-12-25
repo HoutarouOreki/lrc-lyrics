@@ -1,0 +1,112 @@
+﻿@model LrcLyrics.BackEnd.Models.Lyrics
+
+@{
+    var submission = ViewData["Lyric"] as LyricsSubmission;
+    ViewData["Title"] = $"Submission: {submission.Lyrics.Artist} - {submission.Lyrics.Title}";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (!ViewData.ContainsKey("Key"))
+        ViewData["Key"] = "";
+}
+
+<div class="text-center">
+    @if (!string.IsNullOrEmpty(ViewData["Key"]?.ToString()))
+    {
+        <a>Your key: @ViewData["Key"].</a><a>Save it to be able to edit your submission.</a>
+        <hr />
+    }
+    <h1>@ViewData["Title"]</h1>
+    @if (submission.EditId.HasValue)
+    {
+        <a>Edit of </a><a href="@submission.Lyrics.Url">@submission.EditId.Value</a>
+    }
+    @if (submission.State == SubmissionState.Published)
+    {
+        <a>Accepted: </a><a href="@submission.Lyrics.Url">link</a>
+    }
+    else if (submission.State == SubmissionState.Denied)
+    {
+        <a class="text-danger">Denied</a><a>: @submission.DeniedReason</a>
+    }
+    <hr />
+    @Html.PartialAsync("_LyricInfo", submission.Lyrics).Result
+    <hr />
+    @Html.PartialAsync("_LyricLines", submission.Lyrics).Result
+</div>
+@if (submission.State == SubmissionState.Pending || submission.State == SubmissionState.Denied)
+{
+    <hr />
+    <div>
+        <h2 class="d-inline">Edit submission</h2> <small>Key required</small>
+        <br />
+        <br />
+        <form asp-controller="Lyrics" asp-action="UpdateSubmission" method="post">
+            <input type="hidden" id="Id" name="Id" value="@submission.Id" />
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <label for="Artist">Artist</label>
+                    <input id="Artist" name="Artist" class="form-control" placeholder="Song artist" value="@submission.Lyrics.Artist" />
+                </div>
+                <div class="form-group col-6">
+                    <label for="Title">Title</label>
+                    <input class="form-control" name="Title" id="Title" type="text" placeholder="Song title" value="@submission.Lyrics.Title" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <label for="Creators">Lyric creators (e.g. you)</label>
+                    <input id="Creators" name="Creators" class="form-control" placeholder="Creators" value="@submission.Lyrics.Creators" />
+                </div>
+                <div class="form-group col-6">
+                    <label for="MusicUrl">Music URL</label>
+                    <input class="form-control" name="MusicUrl" id="MusicUrl" type="text" placeholder="Music URL (e.g. soundcloud or youtube link)" value="@submission.Lyrics.MusicUrl" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12">
+                    <label for="Description">Description</label>
+                    <input class="form-control" name="Description" id="Description" type="text" placeholder="Short text with any information you feel is necessary for a viewer to know (e.g. source)" value="@submission.Lyrics.Description" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-12">
+                    <label for="Lines">Lyrics</label>
+                    <textarea class="form-control" name="Lines" id="Lines" placeholder="LRC-formatted lyrics:&#10;[01:23.45]Sample Text" rows="10">@submission.RawText</textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-sm-6">
+                    <label for="Key">Key</label>
+                    <input class="form-control" name="Key" id="Key" type="text" placeholder="Your key" value="@ViewData["Key"]" />
+                </div>
+                <div class="form-group col-sm-6">
+                    <label>&nbsp;</label>
+                    <button type="submit" class="btn btn-outline-info btn-outline w-100">Apply edits</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <hr />
+    <form method="post">
+        <input type="hidden" id="Id" name="Id" value="@submission.Id" />
+        <h2 class="d-inline">Publish submission</h2> <small>Key required</small>
+        <br />
+        <br />
+        <div class="form-row">
+            <div class="col-sm-6">
+                <input class="form-control" name="Key" id="Key" type="text" placeholder="Moderator key" />
+            </div>
+            <div class="col-sm-6">
+                <button asp-controller="Lyrics" asp-action="PublishSubmission" type="submit" class="btn btn-outline-primary btn-outline w-100">Publish</button>
+            </div>
+        </div>
+        <br />
+        <div class="form-row">
+            <div class="col-sm-6">
+                <input class="form-control" name="DenyReason" id="DenyReason" type="text" placeholder="Deny reason" />
+            </div>
+            <div class="col-sm-6">
+                <button asp-controller="Lyrics" asp-action="DenySubmission" type="submit" class="btn btn-outline-danger btn-outline w-100">Deny</button>
+            </div>
+        </div>
+    </form>
+}

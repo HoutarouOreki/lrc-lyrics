@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrcLyrics.BackEnd", "LrcLyrics.BackEnd\LrcLyrics.BackEnd.csproj", "{D0F8A09F-FDE8-4F35-BC21-83CBB19B723E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0F8A09F-FDE8-4F35-BC21-83CBB19B723E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0F8A09F-FDE8-4F35-BC21-83CBB19B723E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0F8A09F-FDE8-4F35-BC21-83CBB19B723E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0F8A09F-FDE8-4F35-BC21-83CBB19B723E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {08332D8B-3A8C-45F1-9EF4-01CF124F9A63}
+	EndGlobalSection
+EndGlobal
