@@ -119,7 +119,7 @@ namespace LrcLyrics.BackEnd.Controllers
                     var text = lyricLineMatch.Groups[4].Value;
                     list.Add(new LyricLine { Text = text, Time = time });
                 }
-                else if (string.IsNullOrWhiteSpace(line))
+                else if (string.IsNullOrWhiteSpace(line) && list.Count != 0)
                 {
                     lastEmpty = new LyricLine { Text = "" };
                 }
