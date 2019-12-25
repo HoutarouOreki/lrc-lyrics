@@ -11,26 +11,27 @@
 <div class="text-center">
     @if (!string.IsNullOrEmpty(ViewData["Key"]?.ToString()))
     {
-        <a>Your key: @ViewData["Key"].</a><a>Save it to be able to edit your submission.</a>
+        <div class="row">
+            <div class="col-sm-6">Your key, save it to be able to edit your submission</div>
+            <div class="col-sm-6">
+                <input type="text" readonly value="@ViewData["Key"]" />
+            </div>
+        </div>
         <hr />
     }
-    <h1>@ViewData["Title"]</h1>
+    <h2>@ViewData["Title"]</h2>
     @if (submission.EditId.HasValue)
     {
-        <a>Edit of </a><a href="@submission.Lyrics.Url">@submission.EditId.Value</a>
+        <div>Edit of <a href="@submission.Lyrics.Url">@submission.EditId.Value</a></div>
     }
     @if (submission.State == SubmissionState.Published)
     {
-        <a>Accepted: </a><a href="@submission.Lyrics.Url">link</a>
+        <div style="color: limegreen">Accepted: <a href="@submission.Lyrics.Url">link</a></div>
     }
     else if (submission.State == SubmissionState.Denied)
     {
-        <a class="text-danger">Denied</a><a>: @submission.DeniedReason</a>
+        <div class="text-danger">Denied: @submission.DeniedReason</div>
     }
-    <hr />
-    @Html.PartialAsync("_LyricInfo", submission.Lyrics).Result
-    <hr />
-    @Html.PartialAsync("_LyricLines", submission.Lyrics).Result
 </div>
 @if (submission.State == SubmissionState.Pending || submission.State == SubmissionState.Denied)
 {
@@ -110,3 +111,9 @@
         </div>
     </form>
 }
+<div class="text-center">
+    <hr />
+    @Html.PartialAsync("_LyricInfo", submission.Lyrics).Result
+    <hr />
+    @Html.PartialAsync("_LyricLines", submission.Lyrics).Result
+</div>

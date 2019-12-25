@@ -1,7 +1,12 @@
 ﻿@model LrcLyrics.BackEnd.Models.Lyrics
 
-<a href="@Model.Url/Download">Download</a> -
-<a href="@Model.Url/Raw">Raw</a> -
+@if (Model.Id != 0)
+{
+    <div class="d-inline">
+        <a href="@Model.Url/Download">Download</a> -
+        <a href="@Model.Url/Raw">Raw</a> -
+    </div>
+}
 <a href="javascript:;" id="toggle-timestamps">Timestamps</a> -
 <a href="javascript:;" id="toggle-info">More</a>
 <br />
@@ -9,15 +14,23 @@
     [<a id="timer">00:00.00</a>]Click line to seek time
 </div>
 <div id="lyrics-info" class="text-white-50 d-none">
+    <hr />
     Creators: @Model.Creators
-    <br />Added: @Model.DateAccepted
+    @if (Model.DateAccepted != DateTime.MinValue)
+    {
+        <div>Added: @Model.DateAccepted</div>
+    }
+    @if (Model.DateUpdated != DateTime.MinValue)
+    {
+        <div>Added: @Model.DateUpdated</div>
+    }
     @if (!string.IsNullOrEmpty(Model.MusicUrl))
     {
-        <br /><a>Music url: </a><a href="@Model.MusicUrl">@Model.MusicUrl</a>
+        <div>Music url: <a href="@Model.MusicUrl">@Model.MusicUrl</a></div>
     }
     @if (!string.IsNullOrEmpty(Model.Description))
     {
-        <br /><a>Description: </a>@Model.Description
+        <div>Description: @Model.Description</div>
     }
     @if (Model.Id != 0)
     {

@@ -87,6 +87,7 @@ function toggleTimestamps() {
         }
     }
     timestampsShown = !timestampsShown;
+    toggleTimestampsButton.textContent = timestampsShown ? "Only text" : "Timestamps";
     setCookie(timestampsCookieName, timestampsShown, 360);
 }
 
@@ -101,6 +102,7 @@ const infoShowCookieName = "infoDisplayOn";
 
 let infoShown = false;
 const lyricsInfo = document.getElementById("lyrics-info")
+const toggleInfoButton = document.getElementById("toggle-info");
 
 function toggleInfo() {
     if (infoShown) {
@@ -109,14 +111,13 @@ function toggleInfo() {
         lyricsInfo.className = lyricsInfo.className.replace(" d-none", "");
     }
     infoShown = !infoShown;
+    toggleInfoButton.textContent = infoShown ? "Less" : "More"
     setCookie(infoShowCookieName, infoShown, 360);
 }
 
 if (getCookie(infoShowCookieName) && getCookie(infoShowCookieName) !== infoShown.toString()) {
     toggleInfo();
 }
-
-const toggleInfoButton = document.getElementById("toggle-info");
 if (toggleInfoButton) {
     toggleInfoButton.addEventListener("click", () => toggleInfo());
 }
@@ -225,4 +226,9 @@ function getCookie(cname) {
         }
     }
     return null;
+}
+
+const themes = {
+    "dark": "css/dark.css",
+    "light": "css/light.css",
 }

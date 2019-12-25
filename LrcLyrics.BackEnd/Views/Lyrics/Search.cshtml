@@ -1,8 +1,7 @@
 ﻿@{
     ViewData["Title"] = $"Search: {ViewData["SearchText"]}";
 }
-<h1>@ViewData["Title"]</h1>
-<h2>@ViewData["Cos"]</h2>
+<h2>@ViewData["Title"]</h2>
 
 @if (ViewData["SearchResults"] is IReadOnlyList<Lyrics> lyrics)
 {
