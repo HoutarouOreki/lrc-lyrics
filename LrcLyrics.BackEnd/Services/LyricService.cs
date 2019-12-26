@@ -24,10 +24,21 @@ namespace LrcLyrics.BackEnd.Services
             lyricSubmissions = database.GetCollection<LyricsSubmission>("lyric-submissions");
         }
 
-        public Lyrics GetLyrics(int id)
+        public Lyrics GetLyrics(int id, bool incrementVisits = false)
         {
             var lyric = lyrics.Find(l => l.Id == id).FirstOrDefault();
+            if (incrementVisits && lyric != null)
+            {
+                var update = Builders<Lyrics>.Update.Inc(l => l.Visits, 1);
+                lyrics.UpdateOne(l => l.Id == id, update);
+            }
             return lyric;
+        }
+
+        public void IncrementLyricsDownloads(int id)
+        {
+            var update = Builders<Lyrics>.Update.Inc(l => l.Downloads, 1);
+            lyrics.UpdateOne(l => l.Id == id, update);
         }
 
         public void AddLyrics(Lyrics addedLyrics)

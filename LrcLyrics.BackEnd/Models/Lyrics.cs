@@ -38,6 +38,15 @@ namespace LrcLyrics.BackEnd.Models
         [BsonElement("dateUpdated")]
         public DateTime DateUpdated { get; set; }
 
+        [BsonElement("visits")]
+        public int Visits { get; set; }
+
+        [BsonElement("downloads")]
+        public int Downloads { get; set; }
+
+        [BsonElement("sources")]
+        public List<LyricsSource> Sources { get; set; } = new List<LyricsSource>();
+
         [BsonIgnore]
         public string Url => @$"/Lyrics/{Id}/{Artist}/{Title}";
 

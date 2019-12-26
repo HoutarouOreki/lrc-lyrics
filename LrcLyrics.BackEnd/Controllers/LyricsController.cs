@@ -42,7 +42,7 @@ namespace LrcLyrics.BackEnd.Controllers
         [HttpGet("{id}")]
         public IActionResult ViewLyric(int id)
         {
-            var lyric = lyricService.GetLyrics(id);
+            var lyric = lyricService.GetLyrics(id, true);
             if (lyric == null)
                 return View("Error");
 
@@ -57,6 +57,8 @@ namespace LrcLyrics.BackEnd.Controllers
         public FileResult DownloadLrc([FromRoute]int id)
         {
             var lyric = lyricService.GetLyrics(id);
+            if (lyric != null)
+                lyricService.IncrementLyricsDownloads(id);
             return File(Encoding.UTF8.GetBytes(lyric.GetLrcString()), "text/lrc", $"{lyric.Artist} - {lyric.Title}.lrc");
         }
 
