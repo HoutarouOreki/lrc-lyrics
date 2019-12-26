@@ -23,6 +23,7 @@ if (darkCookieExists && darkCookie != isDark) {
     isDark = darkCookie;
     setTheme();
 }
+
 function setTheme() {
     if (isDark) {
         root.style.setProperty('--text', "hsl(0, 0%, 90%)");
