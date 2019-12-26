@@ -2,21 +2,66 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 :root {
+    --is-dark: "true";
     --text: hsl(0, 0%, 90%);
-    --approaching: hsl(50, 100%, 50%);
+    --active: hsl(50, 100%, 50%);
+    --links: hsl(47, 100%, 50%);
+    --links-hover: hsl(51, 100%, 50%);
     --intensifying: hsl(0, 0%, 100%);
+    --background-color: hsl(0, 0%, 10%);
+    --text-white: rgba(255, 255, 255, 0.5);
+    --invert: invert(0%);
+    --progress-bg: hsl(0, 0%, 20%);
+    --form-bg: hsl(0, 0%, 5%);
+    --form-bg-focus: hsl(0, 0%, 20%);
+    /*dark scheme variables*/
+    --text-dark: hsl(0, 0%, 90%);
+    --active-dark: hsl(50, 100%, 50%);
+    --links-dark: hsl(47, 100%, 50%);
+    --links-hover-dark: hsl(51, 100%, 50%);
+    --intensifying-dark: hsl(0, 0%, 100%);
+    --background-color-dark: hsl(0, 0%, 10%);
+    --text-white-dark: rgba(255, 255, 255, 0.5);
+    --invert-dark: invert(0%);
+    --progress-bg-dark: hsl(0, 0%, 20%);
+    --form-bg-dark: hsl(0, 0%, 5%);
+    --form-bg-focus-dark: hsl(0, 0%, 20%);
+    /*light scheme variables*/
+    --text-light: hsl(0, 0%, 10%);
+    --active-light: hsl(301, 100%, 35%);
+    --links-light: hsl(301, 100%, 40%);
+    --links-hover-light: hsl(301, 100%, 50%);
+    --intensifying-light: hsl(0, 0%, 60%);
+    --background-color-light: hsl(0, 0%, 90%);
+    --text-white-light: hsl(0, 0%, 70%);
+    --invert-light: invert(100%);
+    --progress-bg-light: hsl(0, 0%, 80%);
+    --form-bg-light: hsl(0, 0%, 95%);
+    --form-bg-focus-light: hsl(0, 0%, 100%);
+}
+
+.text-white-50 {
+    color: var(--text-white) !important;
 }
 
 @media (prefers-color-scheme: light) {
     :root {
-        --approaching: hsl(303, 100%, 36%);
-        --text: hsl(0, 0%, 10%);
-        --intensifying: hsl(218, 100%, 40%);
+        --is-dark: "false";
+        --text: var(--text-light);
+        --active: var(--active-light);
+        --links: var(--links-light);
+        --links-hover: var(--links-hover-light);
+        --intensifying: var(--intensifying-light);
+        --background-color: var(--background-color-light);
+        --text-white: var(--text-white-light);
     }
+}
 
-    .text-white-50 {
-        color: hsl(0, 0%, 70%) !important;
-    }
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: var(--background-color);
+    color: var(--text);
 }
 
 a.navbar-brand {
@@ -26,31 +71,19 @@ a.navbar-brand {
 }
 
 a {
-    color: hsl(47, 100%, 50%);
+    color: var(--links);
 }
 
     a:hover {
-        color: hsl(51, 100%, 50%);
+        color: var(--links-hover);
     }
-
-@media (prefers-color-scheme: light) {
-    a {
-        color: var(--approaching)
-    }
-
-        a:hover {
-            color: hsl(302, 100%, 41%);
-        }
-}
 
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-@media (prefers-color-scheme: light) {
-    .navbar-toggler-icon {
-        filter: invert(100%);
-    }
+.navbar-toggler-icon {
+    filter: var(--invert);
 }
 
 .btn-primary {
@@ -68,13 +101,7 @@ a {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-    font-size: 14px;
-}
-
-@media (min-width: 550px) {
-    html {
-        font-size: 16px;
-    }
+    font-size: 16px;
 }
 
 @media (min-width: 1000px) {
@@ -105,20 +132,6 @@ button.accept-policy {
 html {
     position: relative;
     min-height: 100%;
-}
-
-body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
-    background-color: hsl(0, 0%, 10%);
-    color: var(--text);
-}
-
-@media (prefers-color-scheme: light) {
-    body {
-        background-color: hsl(0, 0%, 90%);
-        color: var(--text);
-    }
 }
 
 .footer {
@@ -156,28 +169,15 @@ body {
 }
 
 .form-control {
-    background: hsl(0, 0%, 5%);
+    background: var(--form-bg);
     border-color: gray;
-    color: hsl(0, 0%, 90%);
+    color: var(--text);
     border-radius: 0;
 }
 
     .form-control:focus {
-        background: hsl(0, 0%, 20%);
-        color: var(--text)
+        background: var(--form-bg-focus);
     }
-
-@media (prefers-color-scheme: light) {
-    .form-control {
-        background: hsl(0, 0%, 95%);
-        color: hsl(0, 0%, 10%);
-    }
-
-        .form-control:focus {
-            background: hsl(0, 0%, 20%);
-            color: var(--text)
-        }
-}
 
 .btn {
     border-radius: 0;
@@ -189,7 +189,7 @@ body {
 }
 
 .approaching {
-    color: var(--approaching) !important;
+    color: var(--active) !important;
 }
 
 hr {
@@ -214,19 +214,12 @@ hr {
     display: inline-block;
     height: 10px;
     border-radius: 0px;
-    background-color: hsl(0, 0%, 20%);
-    /*border: 1px solid dimgray;*/
-}
-
-@media (prefers-color-scheme: light) {
-    .progress {
-        background-color: hsl(0, 0%, 80%);
-    }
+    background-color: var(--progress-bg);
 }
 
 .progress-bar {
     height: inherit;
-    background-color: var(--approaching) !important;
+    background-color: var(--active) !important;
     opacity: 0.8;
     transition-duration: 0.12s;
     transition-timing-function: linear;

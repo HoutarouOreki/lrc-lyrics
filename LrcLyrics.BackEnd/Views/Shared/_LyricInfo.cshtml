@@ -15,7 +15,9 @@
 </div>
 <div id="lyrics-info" class="text-white-50 d-none">
     <hr />
-    <div><a class="font-weight-bold">By:</a> @Model.Creators</div>
+    <div>
+        <a class="font-weight-bold">Submitted by:</a> @Model.Creators
+    </div>
     @if (Model.DateAccepted != DateTime.MinValue)
     {
         <div><a class="font-weight-bold">Published:</a> @Model.DateAccepted</div>

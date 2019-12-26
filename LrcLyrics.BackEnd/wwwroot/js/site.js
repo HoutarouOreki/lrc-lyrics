@@ -13,6 +13,52 @@ const approachingColor = " intensifying";
 const defaultColor = " text-white-50";
 const currentColor = " approaching";
 
+let root = document.documentElement;
+const trueMatch = new RegExp(/true/);
+const rootStyle = getComputedStyle(root);
+var isDark = trueMatch.test(rootStyle.getPropertyValue('--is-dark'));
+var darkCookie = trueMatch.test(getCookie('darkTheme'));
+var darkCookieExists = getCookie('darkTheme') != null;
+if (darkCookieExists && darkCookie != isDark) {
+    isDark = darkCookie;
+    setTheme();
+}
+function setTheme() {
+    if (isDark) {
+        root.style.setProperty('--text', "hsl(0, 0%, 90%)");
+        root.style.setProperty('--active', "hsl(50, 100%, 50%)");
+        root.style.setProperty('--links', "hsl(47, 100%, 50%)");
+        root.style.setProperty('--links-hover', "hsl(51, 100%, 50%)");
+        root.style.setProperty('--intensifying', "hsl(0, 0%, 100%)");
+        root.style.setProperty('--background-color', 'hsl(0, 0%, 10%)');
+        root.style.setProperty('--text-white', 'rgba(255, 255, 255, 0.5)');
+        root.style.setProperty('--invert', 'invert(0%)');
+        root.style.setProperty('--progress-bg', 'hsl(0, 0%, 20%)');
+        root.style.setProperty('--form-bg', rootStyle.getPropertyValue('--form-bg-dark'));
+        root.style.setProperty('--form-bg-focus', rootStyle.getPropertyValue('--form-bg-focus-dark'));
+    } else {
+        root.style.setProperty('--text', "hsl(0, 0%, 10%)");
+        root.style.setProperty('--active', "hsl(301, 100%, 35%)");
+        root.style.setProperty('--links', "hsl(301, 100%, 40%)");
+        root.style.setProperty('--links-hover', "hsl(301, 100%, 50%)");
+        root.style.setProperty('--intensifying', "hsl(0, 0%, 60%)");
+        root.style.setProperty('--background-color', 'hsl(0, 0%, 90%)');
+        root.style.setProperty('--text-white', 'hsl(0, 0%, 70%)');
+        root.style.setProperty('--invert', 'invert(100%)');
+        root.style.setProperty('--progress-bg', 'hsl(0, 0%, 80%)');
+        root.style.setProperty('--form-bg', rootStyle.getPropertyValue('--form-bg-light'));
+        root.style.setProperty('--form-bg-focus', rootStyle.getPropertyValue('--form-bg-focus-light'));
+    }
+    setCookie('darkTheme', isDark);
+}
+
+const themeSwitcher = document.getElementById('theme-switcher');
+
+themeSwitcher.addEventListener('click', function () {
+    isDark = !isDark;
+    setTheme();
+});
+
 if (timer) {
     setInterval(function () {
         var time = new Date(Date.now() - baseTime - (offset * 10));
@@ -233,9 +279,4 @@ function getCookie(cname) {
         }
     }
     return null;
-}
-
-const themes = {
-    "dark": "css/dark.css",
-    "light": "css/light.css",
 }
