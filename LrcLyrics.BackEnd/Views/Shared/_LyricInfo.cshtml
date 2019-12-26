@@ -15,22 +15,28 @@
 </div>
 <div id="lyrics-info" class="text-white-50 d-none">
     <hr />
-    Creators: @Model.Creators
+    <div><a class="font-weight-bold">Creators:</a> @Model.Creators</div>
     @if (Model.DateAccepted != DateTime.MinValue)
     {
-        <div>Added: @Model.DateAccepted</div>
+        <div><a class="font-weight-bold">Published:</a> @Model.DateAccepted</div>
     }
     @if (Model.DateUpdated != DateTime.MinValue)
     {
-        <div>Added: @Model.DateUpdated</div>
+        <div><a class="font-weight-bold">Updated:</a> @Model.DateUpdated</div>
     }
+    <div><a class="font-weight-bold">Visits:</a> @Model.Visits</div>
+    <div><a class="font-weight-bold">Downloads:</a> @Model.Downloads</div>
     @if (!string.IsNullOrEmpty(Model.MusicUrl))
     {
-        <div>Music url: <a href="@Model.MusicUrl">@Model.MusicUrl</a></div>
+        <div><a class="font-weight-bold">Music link:</a> <a href="@Model.MusicUrl">@Model.MusicUrl</a></div>
     }
     @if (!string.IsNullOrEmpty(Model.Description))
     {
-        <div>Description: @Model.Description</div>
+        <div><a class="font-weight-bold">Description:</a> @Model.Description</div>
+    }
+    @if (Model.Source != null && !Model.Source.IsEmpty)
+    {
+        <div><a class="font-weight-bold">Source:</a> <a @(string.IsNullOrWhiteSpace(Model.Source.Url) ? "" : $"href={Model.Source.Url}")>@Model.Source.Name</a> @if (!string.IsNullOrEmpty(Model.Source.Description)) { <a> - @Model.Source.Description</a> }</div>
     }
     @if (Model.Id != 0)
     {

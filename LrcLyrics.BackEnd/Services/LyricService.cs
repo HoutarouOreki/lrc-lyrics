@@ -31,6 +31,7 @@ namespace LrcLyrics.BackEnd.Services
             {
                 var update = Builders<Lyrics>.Update.Inc(l => l.Visits, 1);
                 lyrics.UpdateOne(l => l.Id == id, update);
+                lyric.Visits++;
             }
             return lyric;
         }

@@ -73,7 +73,7 @@ namespace LrcLyrics.BackEnd.Controllers
         public IActionResult Submit() => View();
 
         [HttpPost("Add")]
-        public IActionResult Add([FromForm]string artist, [FromForm]string title, [FromForm]string creators, [FromForm]string musicUrl, [FromForm]string description, [FromForm]string lines)
+        public IActionResult Add([FromForm]string artist, [FromForm]string title, [FromForm]string creators, [FromForm]string musicUrl, [FromForm]string description, [FromForm]string lines, [FromForm]string sourceName, [FromForm]string sourceLink, [FromForm]string sourceDescription)
         {
             var lyrics = new Lyrics
             {
@@ -81,7 +81,14 @@ namespace LrcLyrics.BackEnd.Controllers
                 Creators = creators,
                 Description = description,
                 MusicUrl = musicUrl,
-                Title = title
+                Title = title,
+                Source = new LyricsSource
+                {
+                    Description = sourceDescription,
+                    Name = sourceName,
+                    Type = SourceType.BasedOn,
+                    Url = sourceLink
+                }
             };
 
             lyrics.Lines = ParseLyrics(lines);
@@ -158,7 +165,7 @@ namespace LrcLyrics.BackEnd.Controllers
         }
 
         [HttpPost("Submissions/Update")]
-        public IActionResult UpdateSubmission([FromForm]int id, [FromForm]string artist, [FromForm]string title, [FromForm]string creators, [FromForm]string musicUrl, [FromForm]string description, [FromForm]string lines, [FromForm]string key)
+        public IActionResult UpdateSubmission([FromForm]int id, [FromForm]string artist, [FromForm]string title, [FromForm]string creators, [FromForm]string musicUrl, [FromForm]string description, [FromForm]string lines, [FromForm]string key, [FromForm]string sourceName, [FromForm]string sourceLink, [FromForm]string sourceDescription)
         {
             var submission = lyricService.GetSubmission(id);
             if (!submission.Keys.Contains(key))
@@ -172,6 +179,14 @@ namespace LrcLyrics.BackEnd.Controllers
             lyrics.MusicUrl = musicUrl;
             lyrics.Title = title;
             lyrics.Lines = ParseLyrics(lines);
+
+            lyrics.Source = new LyricsSource
+            {
+                Description = sourceDescription,
+                Name = sourceName,
+                Type = SourceType.BasedOn,
+                Url = sourceLink
+            };
 
             submission.Lyrics = lyrics;
             submission.State = SubmissionState.Pending;

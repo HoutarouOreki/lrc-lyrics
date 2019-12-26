@@ -54,7 +54,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-6">
-                    <label for="Creators">Lyric creators (e.g. you)</label>
+                    <label for="Creators">Submitter or creators (i.e. you)</label>
                     <input id="Creators" name="Creators" class="form-control" placeholder="Creators" value="@submission.Lyrics.Creators" />
                 </div>
                 <div class="form-group col-6">
@@ -63,9 +63,23 @@
                 </div>
             </div>
             <div class="form-row">
+                <div class="form-group col-4">
+                    <label for="SourceName">Source name</label>
+                    <input class="form-control" name="SourceName" id="SourceName" type="text" placeholder="Website name, location, may be empty" value="@submission.Lyrics.Source?.Name" />
+                </div>
+                <div class="form-group col-4">
+                    <label for="SourceLink">Source link</label>
+                    <input class="form-control" name="SourceLink" id="SourceLink" type="text" placeholder="Link to the source" value="@submission.Lyrics.Source?.Url" />
+                </div>
+                <div class="form-group col-4">
+                    <label for="SourceDescription">Source description</label>
+                    <input class="form-control" name="SourceDescription" id="SourceDescription" type="text" placeholder="Source info, may be empty" value="@submission.Lyrics.Source?.Description" />
+                </div>
+            </div>
+            <div class="form-row">
                 <div class="form-group col-12">
                     <label for="Description">Description</label>
-                    <input class="form-control" name="Description" id="Description" type="text" placeholder="Short text with any information you feel is necessary for a viewer to know (e.g. source)" value="@submission.Lyrics.Description" />
+                    <input class="form-control" name="Description" id="Description" type="text" placeholder="Short text with any information you feel is necessary for a viewer to know" value="@submission.Lyrics.Description" />
                 </div>
             </div>
             <div class="form-row">

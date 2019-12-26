@@ -44,8 +44,8 @@ namespace LrcLyrics.BackEnd.Models
         [BsonElement("downloads")]
         public int Downloads { get; set; }
 
-        [BsonElement("sources")]
-        public List<LyricsSource> Sources { get; set; } = new List<LyricsSource>();
+        [BsonElement("source")]
+        public LyricsSource Source { get; set; }
 
         [BsonIgnore]
         public string Url => @$"/Lyrics/{Id}/{Artist}/{Title}";
