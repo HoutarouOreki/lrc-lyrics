@@ -1,3 +1,4 @@
+using LrcLyrics.BackEnd.Middlewares;
 using LrcLyrics.BackEnd.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,9 +38,11 @@ namespace LrcLyrics.BackEnd
             }
             app.UseStaticFiles();
 
+            app.UseMiddleware(typeof(VisitorMiddleWare));
+
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
