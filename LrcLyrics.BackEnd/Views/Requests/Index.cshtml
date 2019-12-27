@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    var requests = ViewData["Requests"] as IReadOnlyList<LyricsRequest>;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Requests</h2>
+<p>Requests are fulfilled from the oldest to the newest.</p>
+<ul>
+    <li><a asp-controller="Requests" asp-action="New">Submit new</a></li>
+    <li><a asp-controller="Requests" asp-action="Closed">Closed requests</a></li>
+</ul>
+<hr />
+@foreach (var request in requests)
+{
+    <div>@request.Id. @request.Artist - @request.Title - <a href="@request.LyricsLink">lyrics</a> - @request.Comments</div>
+}
+

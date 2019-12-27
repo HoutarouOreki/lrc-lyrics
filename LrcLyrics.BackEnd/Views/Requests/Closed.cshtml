@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewData["Title"] = "Closed";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var requests = ViewData["Requests"] as IReadOnlyList<LyricsRequest>;
+}
+
+<h2>Closed requests</h2>
+<ul>
+    <li><a asp-controller="Requests" asp-action="New">Submit new</a></li>
+    <li><a asp-controller="Requests" asp-action="Index">Open requests</a></li>
+</ul>
+<hr />
+@foreach (var request in requests)
+{
+    <div>@request.Id. @request.Artist - @request.Title - <a href="@request.LyricsLink">lyrics</a> - @request.Comments | @if (request.State == SubmissionState.Published)
+    {
+        <a class="text-success">Fulfilled</a><a>: </a><a href="/Lyrics/@request.FulfilledId">link</a>
+    }
+    else
+    {
+        <a class="text-danger">Denied</a><a>: @request.DenyReason</a>
+    }</div>
+}
