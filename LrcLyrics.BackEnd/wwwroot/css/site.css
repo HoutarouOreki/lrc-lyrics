@@ -177,6 +177,7 @@ html {
 
     .form-control:focus {
         background: var(--form-bg-focus);
+        color: var(--text);
     }
 
 .btn {
