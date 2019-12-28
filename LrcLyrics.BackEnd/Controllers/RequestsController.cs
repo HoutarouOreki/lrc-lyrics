@@ -30,7 +30,7 @@ namespace LrcLyrics.BackEnd.Controllers
         public IActionResult New() => View();
 
         [HttpPost("New")]
-        public IActionResult New([FromForm]string artist, [FromForm]string title, [FromForm]string lyricsUrl, [FromForm]string comments)
+        public IActionResult New([FromForm]string artist, [FromForm]string title, [FromForm]string lyricsUrl, [FromForm]string musicUrl, [FromForm]string comments)
         {
             var request = new LyricsRequest
             {
@@ -38,6 +38,7 @@ namespace LrcLyrics.BackEnd.Controllers
                 Comments = comments,
                 Date = DateTime.UtcNow,
                 LyricsLink = lyricsUrl,
+                MusicLink = musicUrl,
                 Title = title,
                 State = SubmissionState.Pending
             };

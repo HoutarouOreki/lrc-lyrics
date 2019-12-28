@@ -26,6 +26,9 @@ namespace LrcLyrics.BackEnd.Models
         [BsonElement("lyricsLink")]
         public string LyricsLink { get; set; }
 
+        [BsonElement("musicLink")]
+        public string MusicLink { get; set; }
+
         [BsonElement("title")]
         public string Title { get; set; }
 

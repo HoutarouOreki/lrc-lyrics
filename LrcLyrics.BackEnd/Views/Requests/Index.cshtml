@@ -14,6 +14,20 @@
 <hr />
 @foreach (var request in requests)
 {
-    <div>@request.Id. @request.Artist - @request.Title - <a href="@request.LyricsLink">lyrics</a> - @request.Comments</div>
+    <div>
+        @request.Id. @request.Artist - @request.Title
+        @if (!string.IsNullOrWhiteSpace(request.LyricsLink))
+        {
+            <a> - </a><a href="@request.LyricsLink">lyrics</a>
+        }
+        @if (!string.IsNullOrWhiteSpace(request.MusicLink))
+        {
+            <a> - </a><a href="@request.MusicLink">music</a>
+        }
+        @if (!string.IsNullOrWhiteSpace(request.Comments))
+        {
+            <a> - @request.Comments</a>
+        }
+    </div>
 }
 
