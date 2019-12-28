@@ -3,6 +3,7 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace LrcLyrics.BackEnd.Services
 {
@@ -77,10 +78,21 @@ namespace LrcLyrics.BackEnd.Services
             return submissions.Where(s => s.State == SubmissionState.Pending).ToList();
         }
 
-        public IReadOnlyList<Lyrics> Search(string searchText)
+        public async Task<IReadOnlyList<Lyrics>> Search(string searchText)
         {
-            var search = Builders<Lyrics>.Filter.Text(searchText);
-            return lyrics.Find(search).ToList();
+            var arr = await lyrics.FindAsync(_ => true);
+            var titlesArtists = new List<Lyrics>();
+            var texts = new List<Lyrics>();
+            foreach (var lyric in await arr.ToListAsync())
+            {
+                if (lyric.Title.Contains(searchText, StringComparison.InvariantCultureIgnoreCase) || lyric.Artist.Contains(searchText, StringComparison.InvariantCultureIgnoreCase))
+                    titlesArtists.Add(lyric);
+                else if (texts.Count < 20 && lyric.Lines.Any(l => l.Text.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)))
+                    texts.Add(lyric);
+                if (titlesArtists.Count == 20)
+                    break;
+            }
+            return new List<Lyrics>(titlesArtists.Concat(texts));
         }
 
         public void AddSubmission(LyricsSubmission submission)

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace LrcLyrics.BackEnd.Controllers
 {
@@ -34,10 +35,10 @@ namespace LrcLyrics.BackEnd.Controllers
         }
 
         [HttpGet("Search")]
-        public IActionResult Search()
+        public async Task<IActionResult> Search()
         {
             ViewData["SearchText"] = Request.Query["SearchText"];
-            ViewData["SearchResults"] = lyricService.Search(Request.Query["SearchText"]);
+            ViewData["SearchResults"] = await lyricService.Search(Request.Query["SearchText"]);
             return View();
         }
 
