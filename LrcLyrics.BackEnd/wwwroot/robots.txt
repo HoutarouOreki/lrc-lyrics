@@ -1,5 +1,4 @@
 ﻿User-Agent: *
-Disallow: 
 Disallow: /Lyrics/EditLyrics
 Disallow: /Lyrics/Submissions
 Disallow: /Lyrics/FulfillRequest
