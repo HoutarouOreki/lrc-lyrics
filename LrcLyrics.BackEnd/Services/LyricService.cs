@@ -65,7 +65,9 @@ namespace LrcLyrics.BackEnd.Services
             lyrics.UpdateOne(l => l.Id == nl.Id, update);
         }
 
-        public IReadOnlyList<Lyrics> GetRecent() => lyrics.Find(_ => true).SortByDescending(l => l.Id).Limit(20).ToList();
+        public IReadOnlyList<Lyrics> GetPopular(int amount = 20) => lyrics.Find(_ => true).SortByDescending(l => l.Visits).Limit(amount).ToList();
+
+        public IReadOnlyList<Lyrics> GetRecent(int amount = 20) => lyrics.Find(_ => true).SortByDescending(l => l.Id).Limit(amount).ToList();
 
         public IReadOnlyList<LyricsSubmission> GetSubmissions(bool all = false)
         {

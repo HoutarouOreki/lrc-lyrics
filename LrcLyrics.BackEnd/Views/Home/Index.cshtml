@@ -1,12 +1,32 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    var recent = ViewData["Recent"] as IReadOnlyList<Lyrics>;
+    var popular = ViewData["Popular"] as IReadOnlyList<Lyrics>;
 }
 
 <div class="text-center">
     <h1 class="display-4">LRC Lyrics</h1>
-    <p>Providing you with timestamped karaoke sing-along lyrics.</p>
-    <div class="d-md-none">
+    <p>Providing you with timestamped karaoke lyrics.</p>
         <hr />
+    <div style="max-width: 500px; margin: auto">
         @Html.PartialAsync("_SearchBox").Result
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Recent</h5>
+            @foreach (var lyric in recent)
+            {
+                <div><a href="@lyric.Url">@lyric.Artist - @lyric.Title</a></div>
+            }
+        </div>
+        <div class="col-md-6">
+            <br class="d-md-none" />
+            <h5>Popular</h5>
+            @foreach (var lyric in popular)
+            {
+                <div><a href="@lyric.Url">@lyric.Artist - @lyric.Title</a></div>
+            }
+        </div>
     </div>
 </div>

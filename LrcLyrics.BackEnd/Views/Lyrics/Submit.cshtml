@@ -5,6 +5,7 @@
 }
 
 <h1>Lyric submission</h1>
+<p>Requires providing LRC-formatted lyrics. If you do not know what LRC is, <a href="/Requests/New">make a request instead</a>.</p>
 <form asp-controller="Lyrics" asp-action="Add" method="post">
     @Html.PartialAsync("_SubmissionForm", ViewData["Submission"] as LyricsSubmission).Result
     <button type="submit" class="btn btn-primary w-100">Submit</button>
