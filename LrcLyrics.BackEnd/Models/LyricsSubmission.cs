@@ -40,6 +40,9 @@ namespace LrcLyrics.BackEnd.Models
         [BsonElement("rawText")]
         public string RawText { get; set; }
 
+        [BsonElement("requestToClose")]
+        public int? RequestToClose { get; set; }
+
         [BsonElement("keys")]
         public List<string> Keys { get; set; } = new List<string>();
 

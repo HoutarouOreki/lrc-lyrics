@@ -15,12 +15,14 @@ namespace LrcLyrics.BackEnd.Controllers
     {
         private readonly LyricService lyricService;
         private readonly AdminService adminService;
+        private readonly RequestService requestService;
         private readonly Regex lyricRegex = new Regex(@"\[(\d+):(\d+)\.(\d+)\](.*)");
 
-        public LyricsController(LyricService _lyricService, AdminService _adminService)
+        public LyricsController(LyricService _lyricService, AdminService _adminService, RequestService _requestService)
         {
             lyricService = _lyricService;
             adminService = _adminService;
+            requestService = _requestService;
         }
 
         [HttpGet("RecentlyAdded")]
@@ -73,7 +75,7 @@ namespace LrcLyrics.BackEnd.Controllers
         public IActionResult Submit() => View();
 
         [HttpPost("Add")]
-        public IActionResult Add([FromForm]string artist, [FromForm]string title, [FromForm]string creators, [FromForm]string musicUrl, [FromForm]string description, [FromForm]string lines, [FromForm]string sourceName, [FromForm]string sourceLink, [FromForm]string sourceDescription)
+        public IActionResult Add([FromForm]string artist, [FromForm]string title, [FromForm]string creators, [FromForm]string musicUrl, [FromForm]string description, [FromForm]string lines, [FromForm]string sourceName, [FromForm]string sourceLink, [FromForm]string sourceDescription, [FromForm]string requestId)
         {
             var lyrics = new Lyrics
             {
@@ -100,6 +102,10 @@ namespace LrcLyrics.BackEnd.Controllers
                 State = SubmissionState.Pending,
                 RawText = lines
             };
+
+            if (int.TryParse(requestId, out var parsedRequestId))
+                lyricsSubmission.RequestToClose = parsedRequestId;
+
             lyricService.AddSubmission(lyricsSubmission);
 
             return RedirectToAction("ViewSubmission", "Lyrics", new { id = lyricsSubmission.Id, key = lyricsSubmission.Keys[0] });
@@ -165,7 +171,7 @@ namespace LrcLyrics.BackEnd.Controllers
         }
 
         [HttpPost("Submissions/Update")]
-        public IActionResult UpdateSubmission([FromForm]int id, [FromForm]string artist, [FromForm]string title, [FromForm]string creators, [FromForm]string musicUrl, [FromForm]string description, [FromForm]string lines, [FromForm]string key, [FromForm]string sourceName, [FromForm]string sourceLink, [FromForm]string sourceDescription)
+        public IActionResult UpdateSubmission([FromForm]int id, [FromForm]string artist, [FromForm]string title, [FromForm]string creators, [FromForm]string musicUrl, [FromForm]string description, [FromForm]string lines, [FromForm]string key, [FromForm]string sourceName, [FromForm]string sourceLink, [FromForm]string sourceDescription, [FromForm]string requestId)
         {
             var submission = lyricService.GetSubmission(id);
             if (!submission.Keys.Contains(key))
@@ -192,6 +198,9 @@ namespace LrcLyrics.BackEnd.Controllers
             submission.State = SubmissionState.Pending;
             submission.RawText = lines;
             submission.DateUpdated = DateTime.UtcNow;
+
+            if (int.TryParse(requestId, out var parsedRequestId))
+                submission.RequestToClose = parsedRequestId;
 
             lyricService.UpdateSubmission(submission);
 
@@ -220,6 +229,8 @@ namespace LrcLyrics.BackEnd.Controllers
             submission.AcceptedId = lyrics.Id;
             submission.State = SubmissionState.Published;
             lyricService.UpdateSubmission(submission);
+            if (submission.RequestToClose.HasValue)
+                requestService.FulfillRequest(submission.RequestToClose.Value, lyrics.Id);
             return RedirectToAction("ViewLyric", "Lyrics", new { id = lyrics.Id });
         }
 

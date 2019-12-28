@@ -41,5 +41,17 @@ namespace LrcLyrics.BackEnd.Services
             var search = Builders<LyricsRequest>.Filter.Text(artist + " " + title);
             return requests.Find(search).ToList();
         }
+
+        public void FulfillRequest(int id, int lyricsId)
+        {
+            var update = Builders<LyricsRequest>.Update.Set(lr => lr.State, SubmissionState.Published).Set(lr => lr.FulfilledId, lyricsId);
+            requests.UpdateOne(lr => lr.Id == id, update);
+        }
+
+        public void DenyRequest(int id, string denyReason)
+        {
+            var update = Builders<LyricsRequest>.Update.Set(lr => lr.State, SubmissionState.Denied).Set(lr => lr.DenyReason, denyReason);
+            requests.UpdateOne(lr => lr.Id == id, update);
+        }
     }
 }
