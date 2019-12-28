@@ -72,7 +72,31 @@ namespace LrcLyrics.BackEnd.Controllers
         }
 
         [HttpGet("Submit")]
-        public IActionResult Submit() => View();
+        public IActionResult Submit([FromQuery]string artist, [FromQuery]string title, [FromQuery]string creators, [FromQuery]string musicUrl, [FromQuery]string description, [FromQuery]string lines, [FromQuery]string sourceName, [FromQuery]string sourceLink, [FromQuery]string sourceDescription, [FromQuery]int? requestId, [FromQuery]int? editId)
+        {
+            var submission = new LyricsSubmission
+            {
+                EditId = editId,
+                RequestToClose = requestId,
+                Lyrics = new Lyrics
+                {
+                    Artist = artist,
+                    Title = title,
+                    Creators = creators,
+                    MusicUrl = musicUrl,
+                    Description = description,
+                    Lines = ParseLyrics(lines),
+                    Source = new LyricsSource
+                    {
+                        Name = sourceName,
+                        Url = sourceLink,
+                        Description = sourceDescription,
+                    }
+                }
+            };
+            ViewData["Submission"] = submission;
+            return View();
+        }
 
         [HttpPost("Add")]
         public IActionResult Add([FromForm]string artist, [FromForm]string title, [FromForm]string creators, [FromForm]string musicUrl, [FromForm]string description, [FromForm]string lines, [FromForm]string sourceName, [FromForm]string sourceLink, [FromForm]string sourceDescription, [FromForm]string requestId)
@@ -113,6 +137,8 @@ namespace LrcLyrics.BackEnd.Controllers
 
         private List<LyricLine> ParseLyrics(string _lines)
         {
+            if (string.IsNullOrWhiteSpace(_lines))
+                return new List<LyricLine>();
             var lines = _lines.Replace("\r\n", "\n").Split("\n");
             var list = new List<LyricLine>(lines.Length);
             LyricLine lastEmpty = null;
@@ -252,19 +278,7 @@ namespace LrcLyrics.BackEnd.Controllers
         public IActionResult EditLyrics([FromQuery]int id)
         {
             var lyric = lyricService.GetLyrics(id);
-
-            var lyricsSubmission = new LyricsSubmission
-            {
-                EditBase = string.Join("\r\n", lyric.Lines.Select(l => l.ToString())),
-                EditId = lyric.Id,
-                DateSubmitted = DateTime.UtcNow,
-                Lyrics = lyric,
-                State = SubmissionState.Pending,
-                RawText = string.Join("\r\n", lyric.Lines.Select(l => l.ToString()))
-            };
-            lyricService.AddSubmission(lyricsSubmission);
-
-            return RedirectToAction("ViewSubmission", "Lyrics", new { id = lyricsSubmission.Id, key = lyricsSubmission.Keys[0] });
+            return RedirectToAction("Submit", "Lyrics", new { editId = lyric.Id, artist = lyric.Artist, title = lyric.Title, creators = lyric.Creators, musicUrl = lyric.MusicUrl, description = lyric.Description, lines = string.Join("\r\n", lyric.Lines), sourceName, [FromQuery]string sourceLink, [FromQuery]string sourceDescription, [FromQuery]int ? requestId, [FromQuery]int ? editId });
         }
     }
 }

@@ -6,7 +6,7 @@
 
 <h1>Lyric submission</h1>
 <form asp-controller="Lyrics" asp-action="Add" method="post">
-    @Html.PartialAsync("_SubmissionForm").Result
+    @Html.PartialAsync("_SubmissionForm", ViewData["Submission"] as LyricsSubmission).Result
     <button type="submit" class="btn btn-primary w-100">Submit</button>
 </form>
 
