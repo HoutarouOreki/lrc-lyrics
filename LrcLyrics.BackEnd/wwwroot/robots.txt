@@ -2,3 +2,5 @@
 Disallow: 
 Disallow: /Lyrics/EditLyrics
 Disallow: /Lyrics/Submissions
+Disallow: /Lyrics/FulfillRequest
+Sitemap: https://lrclyrics.orekiwoof.com/sitemap.xml
