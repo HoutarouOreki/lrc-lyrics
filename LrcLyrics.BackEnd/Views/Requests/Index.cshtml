@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Requests";
     var requests = ViewData["Requests"] as IReadOnlyList<LyricsRequest>;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -28,6 +28,7 @@
         {
             <a> - @request.Comments</a>
         }
+        <a> - </a><a href="/Requests/Fulfill/@request.Id">fulfill</a>
     </div>
 }
 

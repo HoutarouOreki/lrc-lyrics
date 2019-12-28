@@ -45,5 +45,12 @@ namespace LrcLyrics.BackEnd.Controllers
             requestService.AddRequest(request);
             return RedirectToAction("Index", "Requests");
         }
+
+        [HttpGet("Fulfill/{id:int}")]
+        public IActionResult Fulfill(int id)
+        {
+            var request = requestService.GetRequest(id);
+            return RedirectToAction("FulfillRequest", "Lyrics", new { artist = request.Artist, title = request.Title, musicUrl = request.MusicLink, lyricsUrl = request.LyricsLink, comments = request.Comments, requestId = id });
+        }
     }
 }

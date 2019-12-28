@@ -74,6 +74,27 @@ namespace LrcLyrics.BackEnd.Controllers
         [HttpGet("Submit")]
         public IActionResult Submit() => View("Submit");
 
+        [HttpGet("FulfillRequest")]
+        public IActionResult FulfillRequest([FromQuery]string artist, [FromQuery]string title, [FromQuery]string lyricsUrl, [FromQuery]string musicUrl, [FromQuery]string comments, [FromQuery]int requestId)
+        {
+            ViewData["Submission"] = new LyricsSubmission
+            {
+                RequestToClose = requestId,
+                Lyrics = new Lyrics
+                {
+                    Artist = artist,
+                    Title = title,
+                    Source = new LyricsSource
+                    {
+                        Url = lyricsUrl
+                    },
+                    MusicUrl = musicUrl,
+                    Description = comments
+                }
+            };
+            return Submit();
+        }
+
         [HttpPost("Add")]
         public IActionResult Add([FromForm]string artist, [FromForm]string title, [FromForm]string creators, [FromForm]string musicUrl, [FromForm]string description, [FromForm]string lines, [FromForm]string sourceName, [FromForm]string sourceLink, [FromForm]string sourceDescription, [FromForm]int? requestId, [FromForm]int? editId)
         {
