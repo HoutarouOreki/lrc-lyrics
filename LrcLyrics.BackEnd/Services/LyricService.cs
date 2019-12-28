@@ -49,7 +49,21 @@ namespace LrcLyrics.BackEnd.Services
             lyrics.InsertOne(addedLyrics);
         }
 
-        public void UpdateLyrics(Lyrics addedLyrics) => lyrics.ReplaceOne(l => l.Id == addedLyrics.Id, addedLyrics);
+        public void UpdateLyrics(Lyrics nl)
+        {
+            var update = Builders<Lyrics>.Update
+                .Set(l => l.Artist, nl.Artist)
+                .Set(l => l.Creators, nl.Creators)
+                .Set(l => l.DateUpdated, DateTime.UtcNow)
+                .Set(l => l.Description, nl.Description)
+                .Set(l => l.Lines, nl.Lines)
+                .Set(l => l.MusicUrl, nl.MusicUrl)
+                .Set(l => l.Source, nl.Source)
+                .Set(l => l.Title, nl.Title)
+                .Set(l => l.Url, nl.Url)
+                .Set(l => l.Visits, nl.Visits);
+            lyrics.UpdateOne(l => l.Id == nl.Id, update);
+        }
 
         public IReadOnlyList<Lyrics> GetRecent() => lyrics.Find(_ => true).SortByDescending(l => l.Id).Limit(20).ToList();
 

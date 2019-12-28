@@ -35,13 +35,19 @@
     </div>
 </div>
 <div class="form-row">
-    <div class="form-group col-md-8">
+    <div class="form-group col-md-12">
         <label for="Description">Description</label>
         <input class="form-control" name="Description" id="Description" type="text" placeholder="Short text with any information you feel is necessary for a viewer to know" value="@Model?.Lyrics.Description" />
     </div>
-    <div class="form-group col-md-4">
-        <label for="RequestId">Request number</label>
+</div>
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label for="RequestId">Request number (optional)</label>
         <input class="form-control" name="RequestId" id="RequestId" type="text" placeholder="Request to close upon acceptation" value="@Model?.RequestToClose" />
+    </div>
+    <div class="form-group col-md-6">
+        <label for="EditId">Edit ID (optional)</label>
+        <input class="form-control" name="EditId" id="EditId" type="text" placeholder="Id of lyrics to edit" value="@Model?.EditId" />
     </div>
 </div>
 <div class="form-row">
