@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace LrcLyrics.BackEnd.Services
+namespace LrcLyrics.BackEnd.Models
 {
     public class Key
     {
