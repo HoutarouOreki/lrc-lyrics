@@ -60,9 +60,7 @@ namespace LrcLyrics.BackEnd.Services
                 .Set(l => l.Lines, nl.Lines)
                 .Set(l => l.MusicUrl, nl.MusicUrl)
                 .Set(l => l.Source, nl.Source)
-                .Set(l => l.Title, nl.Title)
-                .Set(l => l.Url, nl.Url)
-                .Set(l => l.Visits, nl.Visits);
+                .Set(l => l.Title, nl.Title);
             lyrics.UpdateOne(l => l.Id == nl.Id, update);
         }
 
