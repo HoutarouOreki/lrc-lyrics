@@ -4,10 +4,16 @@
     var popular = ViewData["Popular"] as IReadOnlyList<Lyrics>;
 }
 
+@section Metas
+{
+    <meta name="title" content="LRC Lyrics" />
+    <meta name="description" content="Providing you with timestamped karaoke lyrics and LRC downloads." />
+}
+
 <div class="text-center">
     <h1 class="display-4">LRC Lyrics</h1>
     <p>Providing you with timestamped karaoke lyrics.</p>
-        <hr />
+    <hr />
     <div style="max-width: 500px; margin: auto">
         @Html.PartialAsync("_SearchBox").Result
     </div>
